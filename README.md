@@ -1,25 +1,29 @@
 # Data Warehouse Project #1: Sales
 
-> **Status**: In Progress 🔄 | [Notion Board](https://burly-may-782.notion.site/Data-Warehouse-Project-2d066d3f5ed980fdbff2e7ba1784069c)
+> **Status**: Ongoing 🔄 | [Notion Workspace](https://burly-may-782.notion.site/Data-Warehouse-Project-2d066d3f5ed980fdbff2e7ba1784069c)
 
 ## Project Requirements
 
-### Building the Data Warehouse (Data Engineering)
+### Building the Data Warehouse (Data Engineering) ⚙️
 
-**Objective**
+    Design and implement a modern data warehouse using SQL Server that centralizes sales-related data to support analytics and data-driven decisions.
 
-    Develop a modern data warehouse using SQL Server to consolidate sales data, enabling analytical reporting and informed decision-making.
+**Key Requirements**
 
-**Specifications**
-
-- **Data Sources**: Import data from two source systems (ERP & CRM) provided as CSV files.
-- **Data Quality**: Cleanse and resolve data quality issues prior to analysis.
-- **Integration**: Combine both sources into a single, user-friendly data model designed for analytical queries.
-- **Scope**: Focus on the the latest dataset only; historization of data is not required.
-- **Documentation**: Provide clear documentation of the data model to support both business stakeholders and analytics teams.
+- **Source Systems**: Load data from two operational systems (ERP and CRM) provided in CSV format.
+- **Data Validation**: Identify, clean, and address data quality issues before performing analysis.
+- **Data Integration**: Merge both datasets into a unified, analytics-friendly data model optimized for querying.
+- **Data Scope**: Work exclusively with the most recent data snapshot; historical tracking is out of scope.
+- **Documentation**: Create clear and accessible documentation of the data model for business users and analytics teams.
 
 ---
 
-### BI: Analytics & Reporting (Data Analysis)
+### Analytics & Reporting (Business Intelligence) 📊
 
-**Objective**: Develop SQL-based analytics to deliver detailed insights into: TBD.
+**Goal**: Build SQL-driven analyses to generate insights related to:
+
+- **Customer Patterns**
+- **Product-Level Performance**
+- **Sales Behavior Over Time**
+
+These analyses provide stakeholders with meaningful metrics to support informed and strategic business decisions.
