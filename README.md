@@ -1,6 +1,6 @@
 # Data Warehouse Project #1: Sales
 
-> **Status**: In Progress 🔄 
+> **Status**: In Progress 🔄 | [Notion Board](https://burly-may-782.notion.site/Data-Warehouse-Project-2d066d3f5ed980fdbff2e7ba1784069c)
 
 ## Project Requirements
 
