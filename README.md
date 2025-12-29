@@ -6,7 +6,7 @@
 
 ### Building the Data Warehouse (Data Engineering) ⚙️
 
-    Design and implement a modern data warehouse using SQL Server that centralizes sales-related data to support analytics and data-driven decisions.
+Design and implement a modern data warehouse using SQL Server that centralizes sales-related data to support analytics and data-driven decisions.
 
 **Key Requirements**
 
