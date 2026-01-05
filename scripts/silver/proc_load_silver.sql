@@ -1,7 +1,8 @@
 -- Clean Load of Silver Layer
 
--- Created a subquery to rank duplicates with flag_last 
--- through primary key (cst_id).
+/* ============================================ */
+/* ============== Customers Table ============= */
+/* ============================================ */
 
 INSERT INTO silver.crm_cust_info (
 	cst_id,
@@ -37,43 +38,35 @@ FROM (
 
 )dups WHERE flag_last = 1
 
--- Check Results
+/* ============================================ */
+/* ============== Products Table ============== */
+/* ============================================ */
 
-SELECT TOP (1000) [cst_id]
-      ,[cst_key]
-      ,[cst_firstname]
-      ,[cst_lastname]
-      ,[cst_marital_status]
-      ,[cst_gndr]
-      ,[cst_create_date]
-  FROM [DataWarehouse].silver.[crm_cust_info];
+INSERT INTO silver.crm_prd_info (
+	prd_id,
+	cat_id,
+	prd_key,
+	prd_nm,
+	prd_cost,
+	prd_line,
+	prd_start_dt,
+	prd_end_dt)
 
---- Data Quality Checks --
-
--- Checks for Nulls or Duplicates --
--- Expectation: No Results
-
-SELECT cst_id, COUNT(*) 
-FROM silver.crm_cust_info
-GROUP BY cst_id
-HAVING COUNT(*) > 1 OR cst_id IS NULL
-
--- Checks for Unwanted Spaces --
--- Expectation: No Results
-
-SELECT cst_firstname
-FROM silver.crm_cust_info
-WHERE cst_firstname != TRIM(cst_firstname)
-
-SELECT cst_lastname
-FROM silver.crm_cust_info
-WHERE cst_lastname != TRIM(cst_lastname)
-
--- Checks for Consistency --
--- Expectation: No Results
-
-SELECT DISTINCT cst_gndr
-FROM silver.crm_cust_info
-
-SELECT DISTINCT cst_marital_status
-FROM silver.crm_cust_info
+SELECT [prd_id]
+      ,REPLACE(SUBSTRING(prd_key, 1, 5), '-', '_') AS cat_id
+      ,SUBSTRING(prd_key, 7, LEN(prd_key)) AS prd_key
+      ,[prd_nm]
+      ,ISNULL(prd_cost, 0) AS prd_cost
+      ,CASE UPPER(TRIM(prd_line))
+            WHEN 'M' THEN 'Mountain'
+            WHEN 'R' THEN 'Road'
+            WHEN 'S' THEN 'Other Sales'
+            WHEN 'T' THEN 'Touring'
+            ELSE 'N/A'
+       END AS prd_line
+      ,CAST (prd_start_dt AS DATE) AS prd_start_dt
+      ,CAST (LEAD(prd_start_dt) OVER (PARTITION BY prd_key ORDER BY prd_start_dt)-1 AS DATE) AS prd_end_dt 
+  FROM [DataWarehouse].[bronze].[crm_prd_info]
+  WHERE SUBSTRING(prd_key, 7, LEN(prd_key)) NOT IN (
+    SELECT sls_prd_key FROM bronze.crm_sales_details WHERE sls_prd_key LIKE 'FK%'
+  )
